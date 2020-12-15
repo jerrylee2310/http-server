@@ -2,15 +2,16 @@
 
 'use strict';
 
-var colors     = require('colors/safe'),
-    os         = require('os'),
+var colors     = require('colors/safe'),//设置控制台文本颜色
+    os         = require('os'),// 基本的系统操作函数
     httpServer = require('../lib/http-server'),
-    portfinder = require('portfinder'),
-    opener     = require('opener'),
+    portfinder = require('portfinder'),// 自动获取端口
+    opener     = require('opener'),// 通过浏览器打开url
     fs         = require('fs'),
-    argv       = require('minimist')(process.argv.slice(2));
+    argv       = require('minimist')(process.argv.slice(2));//解析参数选项
+    console.log(argv);
 var ifaces = os.networkInterfaces();
-
+console.log(ifaces);
 process.title = 'http-server';
 
 if (argv.h || argv.help) {

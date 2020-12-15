@@ -17,7 +17,7 @@
 This will install `http-server` globally so that it may be run from the command line anywhere.
 
 #### Globally via Homebrew
-
+   
     brew install http-server
 
 #### Running on-demand:
