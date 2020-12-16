@@ -10,9 +10,24 @@ var colors     = require('colors/safe'),//设置控制台文本颜色
     fs         = require('fs'),
     argv       = require('minimist')(process.argv.slice(2));//解析参数选项
     console.log(argv);
+    const toml = require('toml');
+    const path = require('path');
+    const concat = require('concat-stream');
 var ifaces = os.networkInterfaces();
 console.log(ifaces);
 process.title = 'http-server';
+
+// 获取toml配置
+const result = async function(){
+  var files = await new Promise(resolve=>{
+      fs.createReadStream(path.resolve(__dirname,'../vpath.config.toml'), 'utf8').pipe(concat(function(data) {
+          var parsed = toml.parse(data);
+          resolve(parsed)
+      }));
+  })
+  global.config = files; //加到node全局变量中，便于全局访问
+  return files;
+};
 
 if (argv.h || argv.help) {
   console.log([
@@ -104,7 +119,7 @@ if (version) {
 }
 
 if (!port) {
-  portfinder.basePort = 8080;
+  portfinder.basePort = 8080;//默认监听8080端口
   portfinder.getPort(function (err, port) {
     if (err) { throw err; }
     listen(port);
@@ -114,7 +129,8 @@ else {
   listen(port);
 }
 
-function listen(port) {
+async function listen(port) {
+  const configs = await result();
   var options = {
     root: argv._[0],//根目录
     cache: argv.c,//	设置缓存cache-control max-age heade存留时间（以秒为单位），示例：-c10是10秒，默认是3600秒，如果要禁用缓存就使用-c-1

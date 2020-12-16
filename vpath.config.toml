@@ -1,0 +1,46 @@
+title = "vpath" # 虚拟服务器端文件路径的机制
+[default]
+main_dir="/folder" # 网站的根目录对应的文件夹。
+custom_dir="/custom_folder" # 所有网站租户的自定义文件夹默认存放在custom_dir下子文件夹中，子文件夹以租户的name命名。
+
+[appdir]
+# 设置子应用路径，如果没有设置appdir.xxx，那么默认设置为：<main_dir>/xxx，
+# 默认设置的含义是：没有设置子应用的路径视作根应用下的资源。
+root="/" # 设置根应用路径，如果没有设置，那么默认设置为：<main_dir>
+acmis="/acmis"
+acfront="/acfront"
+
+# 设置每个租户的域名和名字
+# 如果没有在[[domains]]中设置租户，那么该租户不支持定制功能。
+[[domains]]
+domain='www.one.com'
+name=""
+
+[[domains]]
+domain="www.two.com"
+name="two"
+
+[[domains]]
+domain="www.three.com"
+name="three"
+
+# 如果没有设置[customization.xxx]，那么默认xxx的dir设置为：<default.custom_dir>/xxx
+[customization.one]
+
+# 如果没有设置appdir."/"，那么默认设置为：<dir>
+root="/customization/one"
+
+# 如果没有设置appdir.xxx，那么默认设置为：<dir>/xxx
+# 默认设置的含义是：没有设置子应用的路径视作根应用下的资源。
+acmis="/customization/one/acmis"
+acfront="/customization/one/acfront"
+
+[customization.two]
+root="/customization/two"
+acmis="/customization/two/acmis"
+acfront="/customization/two/acfront"
+
+[customization.three]
+root="/customization/three"
+acmis="/customization/three/acmis"
+acfront="/customization/three/acfront"
