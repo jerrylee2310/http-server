@@ -58,15 +58,15 @@ if (argv.h || argv.help) {
   process.exit();
 }
 
-var port = argv.p || argv.port || parseInt(process.env.PORT, 10),
-    host = argv.a || '0.0.0.0',
-    ssl = argv.S || argv.ssl,
-    proxy = argv.P || argv.proxy,
-    utc = argv.U || argv.utc,
-    version = argv.v || argv.version,
+var port = argv.p || argv.port || parseInt(process.env.PORT, 10),//端口设置，默认是 8080
+    host = argv.a || '0.0.0.0',//监听地址设置默认是 0.0.0.0
+    ssl = argv.S || argv.ssl,//使用https协议
+    proxy = argv.P || argv.proxy,//通过一个 url地址，代理不能通过本地解析的资源
+    utc = argv.U || argv.utc,//使用 UTC格式，在控制台输出时间信息
+    version = argv.v || argv.version,//显示版本并退出
     logger;
 
-if (!argv.s && !argv.silent) {
+if (!argv.s && !argv.silent) {//或者 —silent 禁止控制台日志信息输出
   logger = {
     info: console.log,
     request: function (req, res, error) {
@@ -116,23 +116,23 @@ else {
 
 function listen(port) {
   var options = {
-    root: argv._[0],
-    cache: argv.c,
-    timeout: argv.t,
-    showDir: argv.d,
-    autoIndex: argv.i,
-    gzip: argv.g || argv.gzip,
+    root: argv._[0],//根目录
+    cache: argv.c,//	设置缓存cache-control max-age heade存留时间（以秒为单位），示例：-c10是10秒，默认是3600秒，如果要禁用缓存就使用-c-1
+    timeout: argv.t,//资源
+    showDir: argv.d,//是否显示文件列表 默认true
+    autoIndex: argv.i,//显示自动索引 默认true
+    gzip: argv.g || argv.gzip,//或者 —gzip 默认false，当文件的gzip版本存在且请求接受gzip编码时，它将服务于./public/some-file.js.gz，而不是./public/some-file.js
     brotli: argv.b || argv.brotli,
-    robots: argv.r || argv.robots,
-    ext: argv.e || argv.ext,
-    logFn: logger.request,
-    proxy: proxy,
-    showDotfiles: argv.dotfiles,
+    robots: argv.r || argv.robots,//返回robots.txt
+    ext: argv.e || argv.ext,//或者 —ext 如果没有提供默认文件扩展名(默认为html)
+    logFn: logger.request,//
+    proxy: proxy,//代理
+    showDotfiles: argv.dotfiles,//不显示dotfiles（dotfiles就是保存了自定义设置的文件）
     username: argv.username || process.env.NODE_HTTP_SERVER_USERNAME,
     password: argv.password || process.env.NODE_HTTP_SERVER_PASSWORD
   };
 
-  if (argv.cors) {
+  if (argv.cors) {//允许跨域资源共享
     options.cors = true;
     if (typeof argv.cors === 'string') {
       options.corsHeaders = argv.cors;
@@ -141,8 +141,8 @@ function listen(port) {
 
   if (ssl) {
     options.https = {
-      cert: argv.C || argv.cert || 'cert.pem',
-      key: argv.K || argv.key || 'key.pem'
+      cert: argv.C || argv.cert || 'cert.pem',//	ssl证书文件的路径，默认是cert.pem
+      key: argv.K || argv.key || 'key.pem'//ssl密匙文件路径
     };
     try {
       fs.lstatSync(options.https.cert);
@@ -189,7 +189,7 @@ function listen(port) {
     }
 
     logger.info('Hit CTRL-C to stop the server');
-    if (argv.o) {
+    if (argv.o) {//启动服务后打开默认浏览器
       var openUrl = protocol + canonicalHost + ':' + port;
       if (typeof argv.o === 'string') {
         openUrl += argv.o[0] === '/' ? argv.o : '/' + argv.o;
