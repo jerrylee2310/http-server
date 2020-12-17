@@ -9,12 +9,12 @@ var colors     = require('colors/safe'),//设置控制台文本颜色
     opener     = require('opener'),// 通过浏览器打开url
     fs         = require('fs'),
     argv       = require('minimist')(process.argv.slice(2));//解析参数选项
-    console.log(argv);
+    // console.log(argv);
     const toml = require('toml');
     const path = require('path');
     const concat = require('concat-stream');
 var ifaces = os.networkInterfaces();
-console.log(ifaces);
+// console.log(ifaces);
 process.title = 'http-server';
 
 // 获取toml配置
@@ -89,6 +89,7 @@ if (!argv.s && !argv.silent) {//或者 —silent 禁止控制台日志信息输�
       var ip = argv['log-ip']
           ? req.headers['x-forwarded-for'] || '' +  req.connection.remoteAddress
           : '';
+          // console.log(req.headers.host);
       if (error) {
         logger.info(
           '[%s] %s "%s %s" Error (%s): "%s"',
