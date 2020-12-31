@@ -119,19 +119,22 @@ if (version) {
   process.exit();
 }
 
-if (!port) {
-  portfinder.basePort = 8080;//默认监听8080端口
-  portfinder.getPort(function (err, port) {
-    if (err) { throw err; }
+async function startServe(){
+  const configs = await result();
+  if (!port) {
+    portfinder.basePort = configs.port || 8080;//默认监听8080端口
+    portfinder.getPort(function (err, port) {
+      if (err) { throw err; }
+      listen(port);
+    });
+  }
+  else {
     listen(port);
-  });
+  }
 }
-else {
-  listen(port);
-}
+startServe();
 
 async function listen(port) {
-  const configs = await result();
   var options = {
     root: argv._[0],//根目录
     cache: argv.c,//	设置缓存cache-control max-age heade存留时间（以秒为单位），示例：-c10是10秒，默认是3600秒，如果要禁用缓存就使用-c-1

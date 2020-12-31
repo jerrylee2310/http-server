@@ -1,19 +1,19 @@
 title = "vpath" # 虚拟服务器端文件路径的机制
 
-port = "8080" # 端口
+port = "8081" # 端口
 
 [defaultDir]
 main="/folder" # 网站的根目录对应的文件夹。
 custom="/customization" # 所有网站租户的自定义文件夹默认存放在custom_dir下子文件夹中，子文件夹以租户的name命名。
 [defaultDir.appdir]
-root = "/folder" # 设置根应用路径，如果没有设置appdir."/"，那么默认设置为：<main>
+root = "/folder/mis" # 设置根应用路径，如果没有设置appdir."/"，那么默认设置为：<main>
 # 设置子应用路径，如果没有设置appdir.xxx，那么默认设置为：<main>/xxx，
 # 默认设置的含义是：没有设置子应用的路径视作根应用下的资源
 mis = '/folder/mis'
 front = '/folder/front'
 
 [appDir]
-root="/"
+root="/mis"
 mis="/mis"
 zcy="/zcy"
 
@@ -25,8 +25,7 @@ name="xaac"
 cn_name="西安仲裁委"
 
 [[domains]]
-domain="127.0.0.1:8081"
-# domain="www.ahzx.com"
+domain="www.ahzx.com"
 name="ahzx"
 cn_name="合肥仲裁委"
 
@@ -39,23 +38,23 @@ cn_name="钦州仲裁委"
 [customization.xaac]
 dir="/customization/xaac"
 [customization.xaac.appdir]
-root="/customization/xaac" # 如果没有设置appdir."/"，那么默认设置为：<dir>
+root="/customization/xaac/mis" # 如果没有设置appdir."/"，那么默认设置为：<dir>
 # 如果没有设置appdir.xxx，那么默认设置为：<dir>/xxx ; 默认设置的含义是：没有设置子应用的路径视作根应用下的资源。
-acmis="/customization/xaac/acmis"
+mis="/customization/xaac/mis"
 zcy="/customization/xaac/zcy"
 
 [customization.ahzx]
 dir="/customization/ahzx"
 [customization.ahzx.appdir]
-root="/customization/ahzx"
-acmis="/customization/ahzx/acmis"
+root="/customization/ahzx/mis"
+mis="/customization/ahzx/mis"
 zcy="/customization/ahzx/zcy"
 
 [customization.qzac]
 dir="/customization/qzac"
 [customization.qzac.appdir]
-root="/customization/qzac"
-acmis="/customization/qzac/acmis"
+root="/customization/qzac/mis"
+mis="/customization/qzac/mis"
 zcy="/customization/qzac/zcy"
 
 # 测试：
