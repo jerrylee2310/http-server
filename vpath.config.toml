@@ -6,13 +6,13 @@ port = "8081" # 端口
 main="/folder" # 网站的根目录对应的文件夹。
 custom="/customization" # 所有网站租户的自定义文件夹默认存放在custom_dir下子文件夹中，子文件夹以租户的name命名。
 [defaultDir.appdir]
-root = "/folder/mis" # 设置根应用路径，如果没有设置appdir."/"，那么默认设置为：<main>
+root = "/folder/mis" # 设置根应用路径，如果没有设置appdir.root，那么默认设置为：<main>
 # 设置子应用路径，如果没有设置appdir.xxx，那么默认设置为：<main>/xxx，
 # 默认设置的含义是：没有设置子应用的路径视作根应用下的资源
 mis = '/folder/mis'
 front = '/folder/front'
 
-[appDir]
+[appName2Dir]
 root="/mis"
 mis="/mis"
 zcy="/zcy"
@@ -38,7 +38,7 @@ cn_name="钦州仲裁委"
 [customization.xaac]
 dir="/customization/xaac"
 [customization.xaac.appdir]
-root="/customization/xaac/mis" # 如果没有设置appdir."/"，那么默认设置为：<dir>
+root="/customization/xaac/mis" # 如果没有设置appdir.root，那么默认设置为：<dir>
 # 如果没有设置appdir.xxx，那么默认设置为：<dir>/xxx ; 默认设置的含义是：没有设置子应用的路径视作根应用下的资源。
 mis="/customization/xaac/mis"
 zcy="/customization/xaac/zcy"
