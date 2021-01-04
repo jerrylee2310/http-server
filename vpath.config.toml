@@ -12,10 +12,15 @@ root = "/folder/acmis" # 设置根应用路径，如果没有设置appdir.root�
 mis = '/folder/acmis'
 front = '/folder/front'
 
-[appName2Dir]
+[appName2dir] # appName对应的文件路径
 root="/acmis"
 mis="/acmis"
 zcy="/zcy"
+
+[appName2indexDir] # appName对应的默认入口文件路径
+root="/login.html"
+mis="/login.html"
+zcy="/login.html"
 
 # 设置每个租户的域名和名字
 # 如果没有在[[domains]]中设置租户，那么该租户不支持定制功能。
