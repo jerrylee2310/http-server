@@ -1,68 +1,29 @@
-title = "vpath" # 虚拟服务器端文件路径的机制
+# vpath只能工作在原始请求为根路径的情况下，
+# 当没有租户定制时把根下的请求重定位到"/appPath"下，
+# 当存在租户定制时把根下的请求重定位到"/customFolder/appPath"下。
 
-port = "8081" # 端口
+appPath="/acmis" # 静态网站的部署路径
+appIndex="/login.html"  # 入口页面路径
+defaultCustomFolder="/customization" # 所有网站租户的自定义文件夹默认存放在defaultCustomFolder下子文件夹中，子文件夹以租户的name命名。
 
-[defaultDir]
-main="/folder" # 网站的根目录对应的文件夹。
-custom="/customization" # 所有网站租户的自定义文件夹默认存放在custom_dir下子文件夹中，子文件夹以租户的name命名。
-[defaultDir.appdir]
-root = "/folder/acmis" # 设置根应用路径，如果没有设置appdir.root，那么默认设置为：<main>
-# 设置子应用路径，如果没有设置appdir.xxx，那么默认设置为：<main>/xxx，
-# 默认设置的含义是：没有设置子应用的路径视作根应用下的资源
-mis = '/folder/acmis'
-front = '/folder/front'
-
-[appName2dir] # appName对应的文件路径
-root="/acmis"
-mis="/acmis"
-zcy="/zcy"
-
-[appName2indexDir] # appName对应的默认入口文件路径
-root="/login.html"
-mis="/login.html"
-zcy="/login.html"
-
-# 设置每个租户的域名和名字
 # 如果没有在[[domains]]中设置租户，那么该租户不支持定制功能。
+# 设置每个租户的域名、名字和定制文件夹，如果没有定制文件夹，那么默认为 <customFolder>/<name>
 [[domains]]
-domain='www.xaac.com'
+domain='localhost' #西安仲裁委
 name="xaac"
-cn_name="西安仲裁委"
+folder="/customization/xaac"
 
 [[domains]]
-domain="www.ahzx.com"
+domain="www.ahzx.com" #合肥仲裁委
 name="ahzx"
-cn_name="合肥仲裁委"
+folder="/customization/ahzx"
 
 [[domains]]
-domain="www.qzac.com"
+domain="www.qzac.com" #钦州仲裁委
 name="qzac"
-cn_name="钦州仲裁委"
-
-# 如果没有设置[customization.xxx]，那么默认xxx的dir设置为：<defaultDir.custom>/xxx
-[customization.xaac]
-dir="/customization/xaac"
-[customization.xaac.appdir]
-root="/customization/xaac/acmis" # 如果没有设置appdir.root，那么默认设置为：<dir>
-# 如果没有设置appdir.xxx，那么默认设置为：<dir>/xxx ; 默认设置的含义是：没有设置子应用的路径视作根应用下的资源。
-mis="/customization/xaac/acmis"
-zcy="/customization/xaac/zcy"
-
-[customization.ahzx]
-dir="/customization/ahzx"
-[customization.ahzx.appdir]
-root="/customization/ahzx/acmis"
-mis="/customization/ahzx/acmis"
-zcy="/customization/ahzx/zcy"
-
-[customization.qzac]
-dir="/customization/qzac"
-[customization.qzac.appdir]
-root="/customization/qzac/acmis"
-mis="/customization/qzac/acmis"
-zcy="/customization/qzac/zcy"
+folder="/customization/qzac"
 
 # 测试：
-# 1. 列举上述配置文件中所设定的各种情况，验证返回了正确的内容。
-# 2. 不改变现有前端的部署，通过配置，直接在nginx中启动vpath，系统应该能正常运行。
+# 1. 在使用默认文件夹和指定文件下两种情况下都返回了正确的内容。
+# 2. 不改变现有acmis前端的部署，通过配置，直接在nginx中启动vpath，系统应该能正常运行。
 # 3. 在蓝天仲裁委中尝试定制页面。
