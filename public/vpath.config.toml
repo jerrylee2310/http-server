@@ -1,0 +1,29 @@
+# vpath在部署文件夹中查找文件的约定如下，假设vpath启动时网站的根文件夹是<public>，那么
+# 当没有租户定制时把请求定位到各自应用的"<public>/appPath"下，
+# 当存在租户定制时把请求定位到各自应用的"<public>/<customFolder>/<租户name>/<appPath>"下。
+# 上述应用是指请求路径"/"(根应用)或者"/appPath"(子应用)，当一个请求进来时查找是否有匹配的appPth，如果没有匹配就是根应用。
+
+# 所有网站租户的自定义文件夹都位于customFolder下子文件夹中，子文件夹以租户的name命名。
+customFolder="/customization" 
+
+# 根应用的部署路径
+# 如果没有设置rootPath，那么表示根应用直接部署在<public>下。
+rootPath="/acmis" 
+# 根应用的入口页面路径
+rootIndex="/login.html"
+
+[[subApps]]
+# 子应用的部署路径
+appPath="/zcy" 
+# 子应用的入口页面路径
+appIndex="/index.html"  
+
+# 如果没有在[[domains]]中设置租户，那么该租户不支持定制功能。
+# 设置每个租户的域名、名字。
+[[domains]]
+domain='localhost'
+name="xaac"
+
+[[domains]]
+domain="www.ahzx.com"
+name="ahzx"

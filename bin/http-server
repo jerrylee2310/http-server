@@ -20,7 +20,7 @@ process.title = 'http-server';
 // 获取toml配置
 const result = async function(){
   var files = await new Promise(resolve=>{
-      fs.createReadStream(path.resolve(__dirname,'../vpath.config.toml'), 'utf8').pipe(concat(function(data) {
+      fs.createReadStream(path.resolve(__dirname,'../public/vpath.config.toml'), 'utf8').pipe(concat(function(data) {
           var parsed = toml.parse(data);
           resolve(parsed)
       }));
